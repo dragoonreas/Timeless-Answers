@@ -1,0 +1,8 @@
+## Interface: 50400
+## Title: Timeless Answers
+## Notes: Auto-completes the 'A Timeless Question' daily quest on the Timeless Isle.
+## DefaultState: enabled
+## Author: Dragoonreas
+## Version: 1.0
+
+TimelessAnswers.lua
