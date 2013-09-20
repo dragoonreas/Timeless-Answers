@@ -1,3 +1,6 @@
 package-as: TimelessAnswers
 
+ignore:
+    - README.md
+
 license-output: LICENSE.txt
