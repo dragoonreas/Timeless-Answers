@@ -1,1 +1,10 @@
+libs/
 .DS_Store
+_MACOSX
+Wowmatrix.dat
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
