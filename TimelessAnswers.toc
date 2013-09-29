@@ -1,8 +1,46 @@
 ## Interface: 50400
-## Title: Timeless Answers
-## Notes: Auto-completes the 'A Timeless Question' daily quest on the Timeless Isle.
-## DefaultState: enabled
-## Author: Dragoonreas
+#@non-debug@
+# ## Title: @localization(locale="enUS", key="Title", namespace="ToC")@
+# ## Title-ptBR: @localization(locale="ptBR", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-frFR: @localization(locale="frFR", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-deDE: @localization(locale="deDE", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-itIT: @localization(locale="itIT", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-koKR: @localization(locale="koKR", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-esMX: @localization(locale="esMX", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-ruRU: @localization(locale="ruRU", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-zhCN: @localization(locale="zhCN", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-esES: @localization(locale="esES", key="Title", handle-unlocalized="english", namespace="ToC")@
+# ## Title-zhTW: @localization(locale="zhTW", key="Title", handle-unlocalized="english", namespace="ToC")@
+#@end-non-debug
+#@debug@
+## Title: Timeless Answers - Developement Version
+#@end-debug@
+#@non-debug@
+# ## Notes: @localization(locale="enUS", key="Notes", namespace="ToC")@
+# ## Notes-ptBR: @localization(locale="ptBR", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-frFR: @localization(locale="frFR", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-deDE: @localization(locale="deDE", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-itIT: @localization(locale="itIT", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-koKR: @localization(locale="koKR", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-esMX: @localization(locale="esMX", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-ruRU: @localization(locale="ruRU", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-zhCN: @localization(locale="zhCN", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-esES: @localization(locale="esES", key="Notes", handle-unlocalized="english", namespace="ToC")@
+# ## Notes-zhTW: @localization(locale="zhTW", key="Notes", handle-unlocalized="english", namespace="ToC")@
+#@end-non-debug
+#@debug@
+## Notes: Latest Alpha Version of Timeless Answers.
+#@end-debug@
+## Author: @project-author@
+## X-Translation-Credits: http://wow.curseforge.com/addons/timeless-answers/localization/translators/
 ## Version: @project-version@
+## X-Revision: @project-abbreviated-hash@
+## X-Last-Updated: @project-date-iso@
+## OptionalDeps: Ace3
+## DefaultState: enabled
 
+#@no-lib-strip@
+Libs\embeds.xml
+#@end-no-lib-strip@
+Locales\locale.xml
 TimelessAnswers.lua

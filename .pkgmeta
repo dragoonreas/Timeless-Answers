@@ -1,6 +1,20 @@
 package-as: TimelessAnswers
 
-ignore:
-    - README.md
-
 license-output: LICENSE.txt
+
+tools-used:
+    - wowlua
+
+enable-nolib-creation: yes
+
+externals:
+    libs/AceLocale-3.0
+        url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0/
+    libs/LibStub
+        url: svn://svn.wowace.com/wow/libstub/mainline/trunk/
+
+ignore:
+    - Libs/LibStub/LibStub.toc
+    - Libs/LibStub/tests
+    - Locales/dev-enUS.lua
+    - README.md
