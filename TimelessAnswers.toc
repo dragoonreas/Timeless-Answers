@@ -1,32 +1,32 @@
 ## Interface: 50400
 #@non-debug@
-# ## Title: @localization(locale="enUS", key="Title", namespace="ToC")@
-# ## Title-ptBR: @localization(locale="ptBR", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-frFR: @localization(locale="frFR", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-deDE: @localization(locale="deDE", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-itIT: @localization(locale="itIT", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-koKR: @localization(locale="koKR", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-esMX: @localization(locale="esMX", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-ruRU: @localization(locale="ruRU", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-zhCN: @localization(locale="zhCN", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-esES: @localization(locale="esES", key="Title", handle-unlocalized="english", namespace="ToC")@
-# ## Title-zhTW: @localization(locale="zhTW", key="Title", handle-unlocalized="english", namespace="ToC")@
+## Title: @localization(locale="enUS", key="Title", namespace="ToC")@
+## Title-ptBR: @localization(locale="ptBR", key="Title", namespace="ToC")@
+## Title-frFR: @localization(locale="frFR", key="Title", namespace="ToC")@
+## Title-deDE: @localization(locale="deDE", key="Title", namespace="ToC")@
+## Title-itIT: @localization(locale="itIT", key="Title", namespace="ToC")@
+## Title-koKR: @localization(locale="koKR", key="Title", namespace="ToC")@
+## Title-esMX: @localization(locale="esMX", key="Title", namespace="ToC")@
+## Title-ruRU: @localization(locale="ruRU", key="Title", namespace="ToC")@
+## Title-zhCN: @localization(locale="zhCN", key="Title", namespace="ToC")@
+## Title-esES: @localization(locale="esES", key="Title", namespace="ToC")@
+## Title-zhTW: @localization(locale="zhTW", key="Title", namespace="ToC")@
 #@end-non-debug
 #@debug@
 ## Title: Timeless Answers - Developement Version
 #@end-debug@
 #@non-debug@
-# ## Notes: @localization(locale="enUS", key="Notes", namespace="ToC")@
-# ## Notes-ptBR: @localization(locale="ptBR", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-frFR: @localization(locale="frFR", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-deDE: @localization(locale="deDE", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-itIT: @localization(locale="itIT", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-koKR: @localization(locale="koKR", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-esMX: @localization(locale="esMX", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-ruRU: @localization(locale="ruRU", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-zhCN: @localization(locale="zhCN", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-esES: @localization(locale="esES", key="Notes", handle-unlocalized="english", namespace="ToC")@
-# ## Notes-zhTW: @localization(locale="zhTW", key="Notes", handle-unlocalized="english", namespace="ToC")@
+## Notes: @localization(locale="enUS", key="Notes", namespace="ToC")@
+## Notes-ptBR: @localization(locale="ptBR", key="Notes", namespace="ToC")@
+## Notes-frFR: @localization(locale="frFR", key="Notes", namespace="ToC")@
+## Notes-deDE: @localization(locale="deDE", key="Notes", namespace="ToC")@
+## Notes-itIT: @localization(locale="itIT", key="Notes", namespace="ToC")@
+## Notes-koKR: @localization(locale="koKR", key="Notes", namespace="ToC")@
+## Notes-esMX: @localization(locale="esMX", key="Notes", namespace="ToC")@
+## Notes-ruRU: @localization(locale="ruRU", key="Notes", namespace="ToC")@
+## Notes-zhCN: @localization(locale="zhCN", key="Notes", namespace="ToC")@
+## Notes-esES: @localization(locale="esES", key="Notes", namespace="ToC")@
+## Notes-zhTW: @localization(locale="zhTW", key="Notes", namespace="ToC")@
 #@end-non-debug
 #@debug@
 ## Notes: Latest Alpha Version of Timeless Answers.
