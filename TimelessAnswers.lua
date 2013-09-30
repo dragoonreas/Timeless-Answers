@@ -28,11 +28,7 @@ frame:RegisterEvent("QUEST_DETAIL");
 frame:RegisterEvent("QUEST_COMPLETE");
 
 -- Get locale strings table
-local silent = true
---@debug@
-silent = false
---@end-debug@
-local L = LibStub("AceLocale-3.0"):GetLocale(addon, silent)
+local L = LibStub("AceLocale-3.0"):GetLocale(addon)
 
 -- Create question/answer table
 local questions = {

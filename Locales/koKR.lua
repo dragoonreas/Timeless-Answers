@@ -17,13 +17,13 @@ local L = LibStub("AceLocale-3.0"):NewLocale(addon, "koKR", false)
 if not L then return; end
 
 -- Messages output to the user's chat frame
---@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", escape-non-ascii=false, same-key-is-true=true, namespace="Message")@
+--@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", same-key-is-true=true, namespace="Message")@
 
 -- Gossip from the NPC that's neither an answer nor a question
---@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", escape-non-ascii=false, same-key-is-true=true, namespace="Gossip")@
+--@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", same-key-is-true=true, namespace="Gossip")@
 
 -- The complete gossip text from when the NPC asks the question, excluding the "Let us test your knowledge of history, then! " prefix applied to all questions
---@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", escape-non-ascii=false, same-key-is-true=true, namespace="Question")@
+--@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", same-key-is-true=true, namespace="Question")@
 
 -- The complete gossip option text of the correct answer from when the NPC asks the question
---@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", escape-non-ascii=false, same-key-is-true=true, namespace="Answer")@
+--@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english", same-key-is-true=true, namespace="Answer")@
