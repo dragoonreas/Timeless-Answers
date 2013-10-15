@@ -1,6 +1,6 @@
 --[[
     Timeless Answers: Auto-completes the 'A Timeless Question' daily quest on the Timeless Isle.
-    Copyright (C) 2013 dragoonreas
+    Copyright (C) 2013 @project-author@
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -78,11 +78,11 @@ local function Print(msg, isError)
 	else print( format("|cFFFFFF00%s -|r %s", L["TA"], msg) ); end
 end
 
--- Make function to call when regeistered events for quest dialogues are called
+-- Make function to call when registered events for quest dialogues are called
 local function frame_OnEvent(self, event, ...)
     -- Check if Senior Historian Evelyna is targeted
     if UnitExists("target") and tonumber( UnitGUID("target"):sub(6, 10), 16 ) == 73570 then
-        --Print(format("%s event fired.", event));
+        --Print( format("%s event fired.", event) );
         -- Check event type
         if event == "QUEST_DETAIL" then
             -- Accept the quest
@@ -116,19 +116,19 @@ local function frame_OnEvent(self, event, ...)
                             end
                         end
                         
-                        -- Blizzard's changed the quest text since the PTR...
+                        -- Either Blizzard's changed the option text for the answer or our localised sting is incorrect
                         if aFound == false then Print( format( L["Answer of \"%s\" for question \"%s\" not found in gossip options."], a, q ), true ); end
                         
                         break;
                     end
                 end
                 
-                -- Blizzard's added questions since the PTR...
+                -- Either Blizzard's added/changed questions or our localised question string is incorrect
                 if qFound == false then Print( format( L["Question from \"%s\" not found."], question ), true ); end
                 
             -- Check if we've already answered the question
             elseif GetGossipText() == L["That is correct!"] then
-				-- Close the conglatulatory dialogue if the question's been answered (we cheated so we don't deserve it anyway)
+				-- Close the congratulatory dialogue if the question's been answered (we cheated so we don't deserve it anyway)
 				CloseGossip();
 				--Print("Congratulatory message closed.");
                
