@@ -1,5 +1,4 @@
 ## Interface: 50400
-#@non-debug@
 ## Title: @localization(locale="enUS", key="Title", namespace="ToC")@
 ## Title-ptBR: @localization(locale="ptBR", key="Title", namespace="ToC")@
 ## Title-frFR: @localization(locale="frFR", key="Title", namespace="ToC")@
@@ -11,11 +10,9 @@
 ## Title-zhCN: @localization(locale="zhCN", key="Title", namespace="ToC")@
 ## Title-esES: @localization(locale="esES", key="Title", namespace="ToC")@
 ## Title-zhTW: @localization(locale="zhTW", key="Title", namespace="ToC")@
-#@end-non-debug
 #@debug@
 ## Title: Timeless Answers - Developement Version
 #@end-debug@
-#@non-debug@
 ## Notes: @localization(locale="enUS", key="Notes", namespace="ToC")@
 ## Notes-ptBR: @localization(locale="ptBR", key="Notes", namespace="ToC")@
 ## Notes-frFR: @localization(locale="frFR", key="Notes", namespace="ToC")@
@@ -27,7 +24,6 @@
 ## Notes-zhCN: @localization(locale="zhCN", key="Notes", namespace="ToC")@
 ## Notes-esES: @localization(locale="esES", key="Notes", namespace="ToC")@
 ## Notes-zhTW: @localization(locale="zhTW", key="Notes", namespace="ToC")@
-#@end-non-debug
 #@debug@
 ## Notes: Latest Alpha Version of Timeless Answers.
 #@end-debug@
@@ -37,10 +33,16 @@
 ## X-Revision: @project-abbreviated-hash@
 ## X-Last-Updated: @project-date-iso@
 ## OptionalDeps: Ace3
+#@debug@
+## SavedVariables: TALocalexporterDB
+#@end-debug@
 ## DefaultState: enabled
 
 #@no-lib-strip@
 Libs\embeds.xml
 #@end-no-lib-strip@
 Locales\locale.xml
+#@debug@
+Localexporter.lua
+#@end-debug@
 TimelessAnswers.lua
