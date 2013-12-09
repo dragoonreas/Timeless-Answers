@@ -15,4 +15,5 @@ externals:
 
 ignore:
     - Locales/dev-enUS.lua
+    - Localexporter.lua
     - README.md
