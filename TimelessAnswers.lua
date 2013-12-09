@@ -78,7 +78,7 @@ local questions = {
 };
 
 -- Custom print function
-function Print(msg, isError)
+local function Print(msg, isError)
 
 	-- Append coloured prefix to output
 	if isError then print( format( L["ERROR_MESSAGE_PREFIX"], msg ) );
@@ -86,7 +86,7 @@ function Print(msg, isError)
 end
 
 -- Function to check if Senior Historian Evelyna is targeted
-function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= NPC_ID; end
+local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= NPC_ID; end
 
 -- Table of functions to be run when their events are called
 local events = {};
