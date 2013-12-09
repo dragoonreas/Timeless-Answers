@@ -112,14 +112,14 @@ function events:GOSSIP_SHOW(self, ...)
         
         -- Get the options we have to pick from for the answer
         local options = {};
-        for index = 1, NUM_OF_OPTIONS * 2 - 1, 2 do options[ select(index, NUM_OF_OPTIONS) ] = index; end
+        for index = 1, NUM_OF_OPTIONS * 2 - 1, 2 do options[ select(index, GetGossipOptions()) ] = (index + 1) / 2; end
         
         -- Try and find the answer in the given options
-        if option[answer] then
+        if options[answer] then
 
             -- Select the option with the correct answer and inform the user
-            SelectGossipOption( option[answer] );
-            Print( format( L["ANSWER_FOUND"], option[answer], answer ) );
+            SelectGossipOption( options[answer] );
+            Print( format( L["ANSWER_FOUND"], options[answer], answer ) );
             
             -- If we don't find the answer in the options and leave the function then an error message will be output to the user
             return;

@@ -14,13 +14,13 @@ local L = LibStub("AceLocale-3.0"):NewLocale(addon, "enUS", true, false)
 if not L then return; end
 
 -- Messages output to the user's chat frame
-L["Timeless Answers Loaded."] = true
-L["Question from %p not found."] = true
-L["Answer of %p for question %p not found in gossip options."] = true
-L["|cFFFFFF00TA -|r |cFFFF0000Error:|r %s"] = true
-L["|cFF00FF00Found Answer:|r Option %d. %s"] = true
-L["|cFF00FF00Found Question:|r %s"] = true
-L["|cFFFFFF00TA -|r %s"] = true
+L["ADDON_LOADED"] = "Timeless Answers Loaded."
+L["QUESTION_NOT_FOUND"] = "Question from %p not found."
+L["ANSWER_NOT_FOUND"] = "Answer of %p for question %p not found in gossip options."
+L["ERROR_MESSAGE_PREFIX"] = "|cFFFFFF00TA -|r |cFFFF0000Error:|r %s"
+L["ANSWER_FOUND"] = "|cFF00FF00Found Answer:|r Option %d. %s"
+L["QUESTION_FOUND"] = "|cFF00FF00Found Question:|r %s"
+L["MESSAGE_PREFIX"] = "|cFFFFFF00TA -|r %s"
 
 -- Gossip from the NPC that's neither an answer nor a question
 L["That is correct!"] = true
