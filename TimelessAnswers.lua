@@ -81,8 +81,8 @@ local questions = {
 function Print(msg, isError)
 
 	-- Append coloured prefix to output
-	if isError then print( format( L["|cFFFFFF00TA -|r |cFFFF0000Error:|r %s"], msg ) );
-	else print( format( L["|cFFFFFF00TA -|r %s"], msg ) ); end
+	if isError then print( format( L["ERROR_MESSAGE_PREFIX"], msg ) );
+	else print( format( L["MESSAGE_PREFIX"], msg ) ); end
 end
 
 -- Function to check if Senior Historian Evelyna is targeted
@@ -106,27 +106,27 @@ function events:GOSSIP_SHOW(self, ...)
         
         -- Check that we know the question and thus have the answer and inform the user
         if not answer then
-        	Print( format( L["Question from \"%s\" not found."], question ), true );
+        	Print( format( L["QUESTION_NOT_FOUND"], question ), true );
         	return; 
-        else Print( format( L["|cFF00FF00Found Question:|r %s"], question ) ); end
+        else Print( format( L["QUESTION_FOUND"], question ) ); end
         
         -- Get the options we have to pick from for the answer
         local options = {};
-        for index = 1, GetNumGossipOptions() * 2 - 1, 2 do options[select(index, GetGossipOptions())] = index; end
+        for index = 1, NUM_OF_OPTIONS * 2 - 1, 2 do options[ select(index, NUM_OF_OPTIONS) ] = index; end
         
         -- Try and find the answer in the given options
         if option[answer] then
 
             -- Select the option with the correct answer and inform the user
-            SelectGossipOption(index);
-            Print( format( L["|cFF00FF00Found Answer:|r Option %d. %s"], index, option ) );
+            SelectGossipOption( option[answer] );
+            Print( format( L["ANSWER_FOUND"], option[answer], answer ) );
             
             -- If we don't find the answer in the options and leave the function then an error message will be output to the user
             return;
         end
         
         -- Either Blizzard's changed the option text for the answer or our localised answer sting is incorrect
-        Print( format( L["Answer of \"%s\" for question \"%s\" not found in gossip options."], answer, question ), true );
+        Print( format( L["ANSWER_NOT_FOUND"], answer, question ), true );
         
     -- Check if we've already answered the question
     elseif GetGossipText() == L["That is correct!"] then
@@ -163,4 +163,4 @@ frame:SetScript("OnEvent", function(self, event, ...) events[event](self, ...); 
 for event, func in pairs(events) do frame:RegisterEvent(event); end
 
 -- Inform the user that the addon has loaded
-Print( L["Timeless Answers Loaded."] );
+Print( L["ADDON_LOADED"] );

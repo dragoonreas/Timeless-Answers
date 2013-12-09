@@ -402,8 +402,8 @@ function events:PLAYER_LOGOUT(eventSelf, event, ...)
 	TALocalexporterDB[LOCALE].responses = responses;
 end
 
--- Set above function to be run when registered events for quest dialogues are called
-frame:SetScript("OnEvent", function(eventSelf, event, ...) events[event](nil, eventSelf, event, ...); end); -- TODO: Find out why the first argument isn't set (hence the hack-fix of sending nil as the first argument)
+-- Set above functions to be run when registered events are called
+frame:SetScript("OnEvent", function(eventSelf, event, ...) events[event](nil, eventSelf, event, ...); end); -- TODO: Find out why the first argument isn't sent (hence the hack-fix of sending nil as the first argument)
 
 -- Register frame with quest dialogue events
 for event, func in pairs(events) do frame:RegisterEvent(event); end
