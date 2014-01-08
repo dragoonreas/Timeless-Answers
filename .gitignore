@@ -1,4 +1,5 @@
-libs/
+libs/AceLocale-3.0/
+libs/LibStub/
 .DS_Store
 _MACOSX
 Wowmatrix.dat

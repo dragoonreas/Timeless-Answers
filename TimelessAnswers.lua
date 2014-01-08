@@ -120,14 +120,10 @@ function events.GOSSIP_SHOW()
             -- Select the option with the correct answer and inform the user
             SelectGossipOption( options[answer] );
             Print( format( L["ANSWER_FOUND"], options[answer], answer ) );
-            
-            -- If we don't find the answer in the options and leave the function then an error message will be output to the user
-            return;
-        end
-        
+
         -- Either Blizzard's changed the option text for the answer or our localised answer sting is incorrect
-        Print( format( L["ANSWER_NOT_FOUND"], answer, question ), true );
-        
+        else Print( format( L["ANSWER_NOT_FOUND"], answer, question ), true ); end
+
         -- Close the congratulatory dialogue if the question's been answered (we cheated so we don't deserve it anyway)
     elseif GetGossipText() == L["That is correct!"] then CloseGossip(); end
 end

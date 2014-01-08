@@ -20,7 +20,7 @@
 local ADDON_NAME, addon = ...;
 
 -- Set to true to load the Locale Exporter, or false to load the main addon
-addon.localexporter = true;
+addon.localexporter = false;
 
 -- Check if we're using the main addon instead
 if not addon.localexporter then return; end
