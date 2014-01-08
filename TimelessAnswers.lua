@@ -30,12 +30,6 @@ local frame = CreateFrame("FRAME");
 -- Get locale strings table
 local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME);
 
--- NPC ID of Senior Historian Evelyna, the quest giver for the 'A Timeless Question' quest
-local NPC_ID = 73570;
-
--- Total number of options given to choose from for each question
-local NUM_OF_OPTIONS = 4;
-
 -- Table of questions and their answers
 local questions = {
     [ L["Let us test your knowledge of history, then! This Horde ship was crafted by goblins. Originally intended to bring Thrall and Aggra to the Maelstrom, the ship was destroyed in a surprise attack by the Alliance."] ] = L["Draka's Fury."],
@@ -85,20 +79,26 @@ local function Print(msg, isError)
 	else print( format( L["MESSAGE_PREFIX"], msg ) ); end
 end
 
--- Function to check if Senior Historian Evelyna is targeted
-local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= NPC_ID; end
+-- Function to check if Senior Historian Evelyna (NPC ID: 73570) is targeted
+local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= 73570; end
 
 -- Table of functions to be run when their events are called
 local events = {};
 
 -- Function to call when GOSSIP_SHOW event is fired
-function events:GOSSIP_SHOW(self, ...)
+function events.GOSSIP_SHOW()
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
 	
     -- Check if we've yet to answer the question
-    if GetNumGossipOptions() == NUM_OF_OPTIONS then
+    if GetNumGossipOptions() == 4 then
+
+        -- Check that we aren't in a raid, as the quest can't be completed if we are
+        if IsInRaid() then
+            Print( L["IN_RAID"], true );
+            return;
+        end
 
         -- Get the question and it's answer if we haven't answered it yet
         local question = GetGossipText();
@@ -112,7 +112,7 @@ function events:GOSSIP_SHOW(self, ...)
         
         -- Get the options we have to pick from for the answer
         local options = {};
-        for index = 1, NUM_OF_OPTIONS * 2 - 1, 2 do options[ select(index, GetGossipOptions()) ] = (index + 1) / 2; end
+        for index = 1, 7, 2 do options[ select(index, GetGossipOptions()) ] = (index + 1) / 2; end -- 4 * 2 - 1 = 7 (GetGossipOptions returns 2 values per option and we only care about the first)
         
         -- Try and find the answer in the given options
         if options[answer] then
@@ -128,16 +128,12 @@ function events:GOSSIP_SHOW(self, ...)
         -- Either Blizzard's changed the option text for the answer or our localised answer sting is incorrect
         Print( format( L["ANSWER_NOT_FOUND"], answer, question ), true );
         
-    -- Check if we've already answered the question
-    elseif GetGossipText() == L["That is correct!"] then
-
-		-- Close the congratulatory dialogue if the question's been answered (we cheated so we don't deserve it anyway)
-		CloseGossip();
-    end
+        -- Close the congratulatory dialogue if the question's been answered (we cheated so we don't deserve it anyway)
+    elseif GetGossipText() == L["That is correct!"] then CloseGossip(); end
 end
 
 -- Function to call when QUEST_DETAIL event is fired
-function events:QUEST_DETAIL(self, ...)
+function events.QUEST_DETAIL()
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
@@ -147,7 +143,7 @@ function events:QUEST_DETAIL(self, ...)
 end
 
 -- Function to call when QUEST_COMPLETE event is fired
-function events:QUEST_COMPLETE(self, ...)
+function events.QUEST_COMPLETE()
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
@@ -157,7 +153,7 @@ function events:QUEST_COMPLETE(self, ...)
 end
 
 -- Set above function to be run when registered events for quest dialogues are called
-frame:SetScript("OnEvent", function(self, event, ...) events[event](self, ...); end);
+frame:SetScript("OnEvent", function(self, event, ...) events[event](); end);
 
 -- Register frame with quest dialogue events
 for event, func in pairs(events) do frame:RegisterEvent(event); end

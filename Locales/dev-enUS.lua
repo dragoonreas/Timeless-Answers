@@ -21,6 +21,7 @@ L["ERROR_MESSAGE_PREFIX"] = "|cFFFFFF00TA -|r |cFFFF0000Error:|r %s"
 L["ANSWER_FOUND"] = "|cFF00FF00Found Answer:|r Option %d. %s"
 L["QUESTION_FOUND"] = "|cFF00FF00Found Question:|r %s"
 L["MESSAGE_PREFIX"] = "|cFFFFFF00TA -|r %s"
+L["IN_RAID"] = "Quest can't be completed while in a raid group."
 
 -- Gossip from the NPC that's neither an answer nor a question
 L["That is correct!"] = true

@@ -35,15 +35,6 @@ if LOCALE == "enGB" then LOCALE = "enUS"; end
 -- The quest id for the 'A Timeless Question' quest
 local QUEST_ID = 33211;
 
--- NPC ID of Senior Historian Evelyna, the quest giver for the 'A Timeless Question' quest
-local NPC_ID = 73570;
-
--- Total number of questions known to be asked in the gossip text
-local NUM_OF_QUESTIONS = 37;
-
--- Total number of options given to choose from for each question
-local NUM_OF_OPTIONS = 4;
-
 --[[
 To be filled with 37 questions and their answers at runtime
 Need type check for table (no correct answer yet) or string (correct answer found) in pair value
@@ -90,8 +81,8 @@ local function Print(msg, isError)
 	else print( format("|cFFFFFF00TA -|r %s", msg) ); end
 end
 
--- Function to check if Senior Historian Evelyna is targeted
-local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= NPC_ID; end
+-- Function to check if Senior Historian Evelyna (NPC ID: 73570) is targeted
+local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= 73570; end
 
 -- Function to check the response of the NPC to see if the answer given was incorrect or correct
 local function CheckResponse(event, questIndex)
@@ -115,8 +106,8 @@ local function CheckResponse(event, questIndex)
 
 	-- Store the correct answer and that the question's answer has been checked this session
 	elseif isCorrect then
-		if type(questions[sessionChecking.question]) == "string" then Print(format("|cFF00FF00Unchecked Answer Correct:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer));
-		elseif type(questions[sessionChecking.question]) == "table" then Print(format("|cFF00FF00Guessed Answer Correct:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer)); end
+		if type(questions[sessionChecking.question]) == "string" then Print( format("|cFF00FF00Unchecked Answer Correct:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) );
+		elseif type(questions[sessionChecking.question]) == "table" then Print( format("|cFF00FF00Guessed Answer Correct:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) ); end
 		questions[sessionChecking.question] = sessionChecking.answer;
 		sessionChecked[sessionChecking.question] = true;
 
@@ -129,9 +120,9 @@ local function CheckResponse(event, questIndex)
 	-- The selected answer was incorrect
 	else
 		if type(questions[sessionChecking.question]) == "string" then
-			Print(format("|cFFFF0000Unchecked Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer));
+			Print( format("|cFFFF0000Unchecked Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) );
 			questions[sessionChecking.question] = {};
-		elseif type(questions[sessionChecking.question]) == "table" then Print(format("|cFFFF0000Guessed Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer)); end
+		elseif type(questions[sessionChecking.question]) == "table" then Print( format("|cFFFF0000Guessed Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) ); end
 		
 		-- Check if the incorrect response text has been saved
 		if not sessionChecked.incorrect then
@@ -190,7 +181,7 @@ TALocalexporterDB = {
 }
 ]]--
 -- Function to call when ADDON_LOADED event is fired
-function events:ADDON_LOADED(eventSelf, event, ...)
+function events.ADDON_LOADED(event, ...)
 
 	-- Get event arguments
     local arg, argStr = {}, "";
@@ -198,10 +189,10 @@ function events:ADDON_LOADED(eventSelf, event, ...)
     
     -- Check event arguments
     if arg.n ~= 1 then
-    	Print(format("ADDON_LOADED event returned %d arguments where 1 was expected.\nArgs: %s", arg.n, argStr), true);
+    	Print( format("ADDON_LOADED event returned %d arguments where 1 was expected.\nArgs: %s", arg.n, argStr), true );
     	return;
     elseif type(arg[1]) ~= "string" then
-    	Print(format("ADDON_LOADED event returned a %s for arg1 where a number was expected.\nArgs: %s", type(arg[1]), argStr), true);
+    	Print( format("ADDON_LOADED event returned a %s for arg1 where a number was expected.\nArgs: %s", type(arg[1]), argStr), true );
     	return;
 
 	-- Only continue if it was this addon that was loaded
@@ -231,7 +222,7 @@ function events:ADDON_LOADED(eventSelf, event, ...)
 end
 
 -- Function to call when QUEST_DETAIL event is fired
-function events:QUEST_DETAIL(eventSelf, event, ...)
+function events.QUEST_DETAIL(event, ...)
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
@@ -242,7 +233,7 @@ function events:QUEST_DETAIL(eventSelf, event, ...)
 end
 
 -- Function to call when GOSSIP_SHOW event is fired
-function events:GOSSIP_SHOW(eventSelf, event, ...)
+function events.GOSSIP_SHOW(event, ...)
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
@@ -255,12 +246,18 @@ function events:GOSSIP_SHOW(eventSelf, event, ...)
 	local gossipText = GetGossipText();
 
 	-- Check if we've yet to answer the question
-	if GetNumGossipOptions() == NUM_OF_OPTIONS then
+	if GetNumGossipOptions() == 4 then
+
+        -- Check that we aren't in a raid, as the quest can't be completed if we are
+        if IsInRaid() then
+            Print("Quest can't be completed while in a raid group.", true);
+            return;
+        end
 
 		-- Check if we have all the info we need to check the response for a previous question that we must have got wrong
 		if sessionChecking.question and sessionChecking.answer and sessionChecking.response then
-			if type(questions[sessionChecking.question]) == "string" then Print(format("|cFFFF0000Unchecked Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer));
-			elseif type(questions[sessionChecking.question]) == "table" then Print(format("|cFFFF0000Guessed Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer)); end
+			if type( questions[sessionChecking.question] ) == "string" then Print( format("|cFFFF0000Unchecked Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) );
+			elseif type( questions[sessionChecking.question] ) == "table" then Print( format("|cFFFF0000Guessed Answer Incorrect:|r\nQuestion: \"%s\"\nAnswer: \"%s\"", sessionChecking.question, sessionChecking.answer) ); end
 			
 			-- Check if the incorrect response text has been saved
 			if not sessionChecked.incorrect then
@@ -277,13 +274,13 @@ function events:GOSSIP_SHOW(eventSelf, event, ...)
 		-- If we've checked that the answer is still correct this session, close the gossip dialogue
 		if sessionChecked[question] then
 			CloseGossip();
-			Print(format("|cFF00FF00Found Checked Question:|r %s", question));
+			Print( format("|cFF00FF00Found Checked Question:|r %s", question) );
 			return;
-		else Print(format("|cFF00FF00Found Unchecked Question:|r %s", question)); end
+		else Print( format("|cFF00FF00Found Unchecked Question:|r %s", question) ); end
 
         -- Get the options we have to pick from for the answer
 		local options = {};
-        for index = 1, NUM_OF_OPTIONS * 2 - 1, 2 do options[select(index, GetGossipOptions())] = (index + 1) / 2; end
+        for index = 1, 7, 2 do options[ select(index, GetGossipOptions()) ] = (index + 1) / 2; end -- 4 * 2 - 1 = 7 (GetGossipOptions returns 2 values per option and we only care about the first)
 		
 		-- Check if we think we know the answer
 		if type(answer) == "string" then
@@ -292,9 +289,9 @@ function events:GOSSIP_SHOW(eventSelf, event, ...)
 			if options[answer] then
 
 				-- Select the option with the assumed answer, and keep track of the question to check if it was correct
-				SelectGossipOption(options[answer]);
+				SelectGossipOption( options[answer] );
 				sessionChecking = { ["question"]=question, ["answer"]=answer };
-				Print(format("|cFFFF8000Found Unchecked Answer:|r Option %d. %s", options[answer], answer));
+				Print( format("|cFFFF8000Found Unchecked Answer:|r Option %d. %s", options[answer], answer) );
 				return;
 
 			-- The assumed answer wasn't avaliable, so make a table to put new guesses in
@@ -311,14 +308,14 @@ function events:GOSSIP_SHOW(eventSelf, event, ...)
 					SelectGossipOption(index);
 					questions[question][option] = index;
 					sessionChecking = { ["question"]=question, ["answer"]=option };
-					Print(format("|cFFFF8000Guessing Answer:|r Option %d. %s", index, option));
+					Print( format("|cFFFF8000Guessing Answer:|r Option %d. %s", index, option) );
 					return;
 				end
 			end
 			
 			-- If all answers are incorrect the answer table must have got corrupted somehow, so clear it so we can try again
 			questions[question] = {};
-			Print(format("All answers for question \"%s\" were incorrect.", question), true);
+			Print( format("All answers for question \"%s\" were incorrect.", question), true );
 		end
 	end
 
@@ -332,7 +329,7 @@ function events:GOSSIP_SHOW(eventSelf, event, ...)
 end
 
 -- Function to call when UNIT_QUEST_LOG_CHANGED event is fired
-function events:UNIT_QUEST_LOG_CHANGED(eventSelf, event, ...)
+function events.UNIT_QUEST_LOG_CHANGED(event, ...)
 
 	-- Check if we're on the 'A Timeless Question' quest
 	local questIndex = GetQuestLogIndexByID(QUEST_ID);
@@ -343,21 +340,15 @@ function events:UNIT_QUEST_LOG_CHANGED(eventSelf, event, ...)
     argStr = GetArguments(arg, ...);
 
     -- Check event arguments
-    if arg.n ~= 1 then Print(format("%s event returned %d arguments where 1 was expected.\nArgs: %s", event, arg.n, argStr), true);
-    elseif type(arg[1]) ~= "string" then Print(format("%s event returned a %s for argument one where a string was expected.\nArgs: %s", event, type(arg[1])), argStr, true);
-	else
+    if arg.n ~= 1 then Print( format("%s event returned %d arguments where 1 was expected.\nArgs: %s", event, arg.n, argStr), true );
+    elseif type(arg[1]) ~= "string" then Print( format("%s event returned a %s for argument one where a string was expected.\nArgs: %s", event, type(arg[1])), argStr, true );
 
-		-- Check if the update was for the player
-		if arg[1] == "player" then
-
-			-- Check the response
-			CheckResponse(event, questIndex);
-		end
-	end
+	-- Check the response if the update was for the player
+	elseif arg[1] == "player" then CheckResponse(event, questIndex); end
 end
 
 -- Function to call when QUEST_COMPLETE event is fired
-function events:QUEST_COMPLETE(eventSelf, event, ...)
+function events.QUEST_COMPLETE(event, ...)
 
 	-- Check if Senior Historian Evelyna is targeted
 	if WrongNPC() then return; end
@@ -366,9 +357,12 @@ function events:QUEST_COMPLETE(eventSelf, event, ...)
 	local questIndex = GetQuestLogIndexByID(QUEST_ID);
 	if not questIndex or questIndex < 1 then return; end
 
+	-- Total number of questions known to be asked in the gossip text
+	local numOfQuestions = 37;
+
 	-- Check if we need to abandon the quest so the rest of the localised strings can be collected
-	if TableLength(sessionChecked) < NUM_OF_QUESTIONS + 2 then
-		Print(format("%d / %d questions localised for %s locale.", TableLength(sessionChecked) - (sessionChecked.correct and 1 or 0) - (sessionChecked.incorrect and 1 or 0), NUM_OF_QUESTIONS, LOCALE));
+	if TableLength(sessionChecked) < numOfQuestions + 2 then
+		Print( format("%d / %d questions localised for %s locale.", TableLength(sessionChecked) - (sessionChecked.correct and 1 or 0) - (sessionChecked.incorrect and 1 or 0), numOfQuestions, LOCALE) );
 
 		-- Abandon the 'A Timeless Question' quest
 		SelectQuestLogEntry(questIndex);
@@ -380,11 +374,11 @@ function events:QUEST_COMPLETE(eventSelf, event, ...)
 	else
 
 		-- Complete the quest
-		--if GetNumQuestChoices() == 0 then GetQuestReward(); end
-		Print(format("Gossip text localisation for %s locale completed.", LOCALE));
+		--if GetNumQuestChoices() == 0 then GetQuestReward(); end -- We don't want to auto-handin the quest incase we want to export more locales
+		Print( format("Gossip text localisation for %s locale completed.", LOCALE) );
 
 		-- Check if there are any old questions left in the table, and remove them
-		if TableLength(questions) > NUM_OF_QUESTIONS then
+		if TableLength(questions) > numOfQuestions then
 			for question, answer in pairs(questions) do
 				if not sessionChecked[question] then questions[question] = nil; end
 			end
@@ -393,7 +387,7 @@ function events:QUEST_COMPLETE(eventSelf, event, ...)
 end
 
 -- Function to call when PLAYER_LOGOUT event is fired
-function events:PLAYER_LOGOUT(eventSelf, event, ...)
+function events.PLAYER_LOGOUT(event, ...)
 
 	-- Save question / answer strings
 	TALocalexporterDB[LOCALE].questions = questions;
@@ -403,7 +397,7 @@ function events:PLAYER_LOGOUT(eventSelf, event, ...)
 end
 
 -- Set above functions to be run when registered events are called
-frame:SetScript("OnEvent", function(eventSelf, event, ...) events[event](nil, eventSelf, event, ...); end); -- TODO: Find out why the first argument isn't sent (hence the hack-fix of sending nil as the first argument)
+frame:SetScript("OnEvent", function(self, event, ...) events[event](event, ...); end);
 
 -- Register frame with quest dialogue events
 for event, func in pairs(events) do frame:RegisterEvent(event); end
