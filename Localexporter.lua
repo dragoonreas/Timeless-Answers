@@ -82,7 +82,7 @@ local function Print(msg, isError)
 end
 
 -- Function to check if Senior Historian Evelyna (NPC ID: 73570) is targeted
-local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= 73570; end
+local function WrongNPC() return not UnitExists("target") or tonumber( select( 6, strsplit( "-", UnitGUID("target") ) ), 10 ) ~= 73570; end
 
 -- Function to check the response of the NPC to see if the answer given was incorrect or correct
 local function CheckResponse(event, questIndex)
@@ -188,12 +188,8 @@ function events.ADDON_LOADED(event, ...)
     argStr = GetArguments(arg, ...);
     
     -- Check event arguments
-    if arg.n ~= 1 then
-    	Print( format("ADDON_LOADED event returned %d arguments where 1 was expected.\nArgs: %s", arg.n, argStr), true );
-    	return;
-    elseif type(arg[1]) ~= "string" then
-    	Print( format("ADDON_LOADED event returned a %s for arg1 where a number was expected.\nArgs: %s", type(arg[1]), argStr), true );
-    	return;
+    if arg.n ~= 1 then return Print( format("ADDON_LOADED event returned %d arguments where 1 was expected.\nArgs: %s", arg.n, argStr), true );
+    elseif type(arg[1]) ~= "string" then return Print( format("ADDON_LOADED event returned a %s for arg1 where a number was expected.\nArgs: %s", type(arg[1]), argStr), true );
 
 	-- Only continue if it was this addon that was loaded
 	elseif arg[1] ~= ADDON_NAME then return; end
@@ -249,10 +245,7 @@ function events.GOSSIP_SHOW(event, ...)
 	if GetNumGossipOptions() == 4 then
 
         -- Check that we aren't in a raid, as the quest can't be completed if we are
-        if IsInRaid() then
-            Print("Quest can't be completed while in a raid group.", true);
-            return;
-        end
+        if IsInRaid() then return Print("Quest can't be completed while in a raid group.", true); end
 
 		-- Check if we have all the info we need to check the response for a previous question that we must have got wrong
 		if sessionChecking.question and sessionChecking.answer and sessionChecking.response then

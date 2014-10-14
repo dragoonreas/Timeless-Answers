@@ -80,7 +80,7 @@ local function Print(msg, isError)
 end
 
 -- Function to check if Senior Historian Evelyna (NPC ID: 73570) is targeted
-local function WrongNPC() return not UnitExists("target") or tonumber( UnitGUID("target"):sub(6, 10), 16 ) ~= 73570; end
+local function WrongNPC() return not UnitExists("target") or tonumber( select( 6, strsplit( "-", UnitGUID("target") ) ), 10 ) ~= 73570; end
 
 -- Table of functions to be run when their events are called
 local events = {};
@@ -95,19 +95,14 @@ function events.GOSSIP_SHOW()
     if GetNumGossipOptions() == 4 then
 
         -- Check that we aren't in a raid, as the quest can't be completed if we are
-        if IsInRaid() then
-            Print( L["IN_RAID"], true );
-            return;
-        end
+        if IsInRaid() then return Print( L["IN_RAID"], true ); end
 
         -- Get the question and it's answer if we haven't answered it yet
         local question = GetGossipText();
         local answer = questions[question];
         
         -- Check that we know the question and thus have the answer and inform the user
-        if not answer then
-        	Print( format( L["QUESTION_NOT_FOUND"], question ), true );
-        	return; 
+        if not answer then return Print( format( L["QUESTION_NOT_FOUND"], question ), true );
         else Print( format( L["QUESTION_FOUND"], question ) ); end
         
         -- Get the options we have to pick from for the answer

@@ -1,4 +1,4 @@
-## Interface: 50400
+## Interface: 60000
 ## Title: @localization(locale="enUS", key="TITLE", namespace="ToC")@
 ## Title-ptBR: @localization(locale="ptBR", key="TITLE", namespace="ToC")@
 ## Title-frFR: @localization(locale="frFR", key="TITLE", namespace="ToC")@
